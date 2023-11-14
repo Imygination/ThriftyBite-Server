@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: {
-            tableName: "Foods"
+            tableName: "Food"
           },
           key: "id"
         }

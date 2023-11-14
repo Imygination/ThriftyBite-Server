@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const cors = require("cors");
 const Auth = require("./controllers/auth");
+const foods = require('./routes/foods');
 const errorHandler = require("./middlewares/errorHandler");
 const app = express();
 const port = 3000;
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 //Mulai code disini
 app.post("/register", Auth.addUser);
 app.post("/login", Auth.loginAccount);
+
+app.use("/foods", foods)
 
 app.use(errorHandler);
 app.listen(port, () => {

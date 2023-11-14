@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Food.belongsTo(models.user, {foreignKey: "UserId"})
       Food.belongsTo(models.store, {foreignKey: "StoreId"})
+      Food.hasMany(models.foodOrder, {foreignKey: "FoodId"})
     }
   }
   Food.init({

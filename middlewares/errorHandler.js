@@ -20,6 +20,7 @@ function errorHandler(error, request, response, next) {
       response.status(403).json({ message: "You are not authorized" });
       break;
     default:
+      console.log(error)
       response.status(500).json({ message: "Internal server error" });
       break;
   }

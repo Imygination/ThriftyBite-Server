@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Store } = require("../models");
 
 async function authorization(req, res, next) {
   try {
@@ -9,6 +9,14 @@ async function authorization(req, res, next) {
     if(user.role !== "seller"){
       throw {name: "Forbidden"}
     }
+    const store = await Store.findOne({
+      where: {
+        UserId: user.id
+      }
+    })
+
+    req.user.StoreId = store.id
+    console.log(req.user)
     next();
   } catch (error) {
     console.log(error);

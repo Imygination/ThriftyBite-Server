@@ -1,18 +1,26 @@
-const express = require("express")
-const cors = require('cors');
-const app = express()
-const port = 3000
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+const express = require("express");
+const cors = require("cors");
+const Auth = require("./controllers/auth");
+const errorHandler = require("./middlewares/errorHandler");
+const app = express();
+const port = 3000;
 
-app.use(cors())
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello World! Final Project ThriftyBite Server")
-})
+  res.send("Hello World! Final Project ThriftyBite Server");
+});
 
 //Mulai code disini
+app.post("/register", Auth.addUser);
+app.post("/login", Auth.loginAccount);
 
+app.use(errorHandler);
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
-})
+  console.log(`App listening on port ${port}`);
+});

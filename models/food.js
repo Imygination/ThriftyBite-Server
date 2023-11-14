@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Food.belongsTo(models.user, {foreignKey: "UserId"})
-      Food.belongsTo(models.store, {foreignKey: "StoreId"})
-      Food.hasMany(models.foodOrder, {foreignKey: "FoodId"})
+      Food.belongsTo(models.User, {foreignKey: "UserId"})
+      Food.belongsTo(models.Store, {foreignKey: "StoreId"})
+      Food.hasMany(models.FoodOrder, {foreignKey: "FoodId"})
     }
   }
   Food.init({

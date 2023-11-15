@@ -12,6 +12,9 @@ function errorHandler(error, request, response, next) {
     case "PasswordInvalid":
       response.status(401).json({ message: "Invalid email or password" });
       break;
+    case "CartEmpty":
+      response.status(401).json({ message: "Cart cannot be empty" });
+      break;
     case "Unauthenticated":
     case "JsonWebTokenError":
       response.status(401).json({ message: "Unauthenticated" });

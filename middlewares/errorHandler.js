@@ -3,8 +3,10 @@ function errorHandler(error, request, response, next) {
     case "SequelizeValidationError":
     case "SequelizeUniqueConstraintError":
       response.status(400).json({ message: error.errors[0].message });
+      break
     case "EmailNull":
       response.status(400).json({ message: "Email is required" });
+      break
     case "PasswordNull":
       response.status(400).json({ message: "Password is required" });
       break;

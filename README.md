@@ -10,6 +10,7 @@
     - [GET /foods/:id](#get-foodsid)
     - [POST /orders](#post-orders)
     - [PATCH /orders/:id](#patch-ordersid)
+    - [GET /orders/:id](#get-ordersid)
 
 ### POST /register
 
@@ -260,20 +261,22 @@
 -   request
 
 ```json
-// array of foods
-[
-    {
-        "name": "string",
-        "imageUrl": "string",
-        "price": "integer",
-        "UserId": "integer",
-        "StoreId": "integer",
-        "Store": {
-            "location": "Geometry(Point)"
-        }
-    },
-    ...
-]
+// carts with array of foods
+{
+    "carts": [
+        {
+            "name": "string",
+            "imageUrl": "string",
+            "price": "integer",
+            "UserId": "integer",
+            "StoreId": "integer",
+            "Store": {
+                "location": "Geometry(Point)"
+            }
+        },
+        ...
+    ]
+}
 ```
 
 -   headers
@@ -317,5 +320,49 @@
 ```json
 {
     "message": "Order has been updated"
+}
+```
+
+### GET /orders/:id
+
+> To get order by id
+
+-   request params
+
+```json
+{
+    "id": "integer"
+}
+```
+
+-   headers
+
+```json
+{
+    "access_token": "string"
+}
+```
+
+-   response (200)
+
+```json
+{
+    "id": "integer",
+    "UserId": "integer",
+    "status": "string",
+    "totalPrice": "integer",
+    "FoodOrders": [
+        {
+            "id": "integer",
+            "FoodId": "integer",
+            "OrderId": "integer",
+            "count": "integer",
+            "foodPrice": "integer",
+            "Food": {
+                "name": "string"
+            }
+        },
+        ...,
+    ]
 }
 ```

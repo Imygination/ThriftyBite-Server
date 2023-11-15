@@ -8,9 +8,9 @@
     - [POST /foods](#post-foods)
     - [GET /foods](#get-foods)
     - [GET /foods/:id](#get-foodsid)
-  - [Work in Progress](#work-in-progress)
     - [POST /orders](#post-orders)
-    - [PATCH /orders](#patch-orders)
+    - [PATCH /orders/:id](#patch-ordersid)
+    - [GET /orders/:id](#get-ordersid)
 
 ### POST /register
 
@@ -253,9 +253,6 @@
 }
 ```
 
----
-
-## Work in Progress
 
 ### POST /orders
 
@@ -264,18 +261,20 @@
 -   request
 
 ```json
+// carts with array of foods
 {
-    "Order": {
-        "UserId": "integer",
-        "status": "string" // [active, finished] default: active
-    },
-    "FoodOrders": [
+    "carts": [
         {
-            "FoodId": "integer",
-            "OrderId": "integer",
-            "count": "integer"
+            "name": "string",
+            "imageUrl": "string",
+            "price": "integer",
+            "UserId": "integer",
+            "StoreId": "integer",
+            "Store": {
+                "location": "Geometry(Point)"
+            }
         },
-        ...,
+        ...
     ]
 }
 ```
@@ -296,7 +295,7 @@
 }
 ```
 
-### PATCH /orders
+### PATCH /orders/:id
 
 > To edit an order
 
@@ -304,9 +303,7 @@
 
 ```json
 {
-    "Order": {
-        "status": "string" // [active, finished]
-    }
+    "status": "string" // [active, finished]
 }
 ```
 
@@ -323,5 +320,49 @@
 ```json
 {
     "message": "Order has been updated"
+}
+```
+
+### GET /orders/:id
+
+> To get order by id
+
+-   request params
+
+```json
+{
+    "id": "integer"
+}
+```
+
+-   headers
+
+```json
+{
+    "access_token": "string"
+}
+```
+
+-   response (200)
+
+```json
+{
+    "id": "integer",
+    "UserId": "integer",
+    "status": "string",
+    "totalPrice": "integer",
+    "FoodOrders": [
+        {
+            "id": "integer",
+            "FoodId": "integer",
+            "OrderId": "integer",
+            "count": "integer",
+            "foodPrice": "integer",
+            "Food": {
+                "name": "string"
+            }
+        },
+        ...,
+    ]
 }
 ```

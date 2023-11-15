@@ -8,9 +8,8 @@
     - [POST /foods](#post-foods)
     - [GET /foods](#get-foods)
     - [GET /foods/:id](#get-foodsid)
-  - [Work in Progress](#work-in-progress)
     - [POST /orders](#post-orders)
-    - [PATCH /orders](#patch-orders)
+    - [PATCH /orders/:id](#patch-ordersid)
 
 ### POST /register
 
@@ -253,9 +252,6 @@
 }
 ```
 
----
-
-## Work in Progress
 
 ### POST /orders
 
@@ -264,20 +260,20 @@
 -   request
 
 ```json
-{
-    "Order": {
+// array of foods
+[
+    {
+        "name": "string",
+        "imageUrl": "string",
+        "price": "integer",
         "UserId": "integer",
-        "status": "string" // [active, finished] default: active
+        "StoreId": "integer",
+        "Store": {
+            "location": "Geometry(Point)"
+        }
     },
-    "FoodOrders": [
-        {
-            "FoodId": "integer",
-            "OrderId": "integer",
-            "count": "integer"
-        },
-        ...,
-    ]
-}
+    ...
+]
 ```
 
 -   headers
@@ -296,7 +292,7 @@
 }
 ```
 
-### PATCH /orders
+### PATCH /orders/:id
 
 > To edit an order
 
@@ -304,9 +300,7 @@
 
 ```json
 {
-    "Order": {
-        "status": "string" // [active, finished]
-    }
+    "status": "string" // [active, finished]
 }
 ```
 

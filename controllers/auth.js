@@ -23,11 +23,13 @@ class Controller {
       if (!passwordValid) {
         throw { name: "PasswordInvalid" };
       }
+      console.log(user);
       const token = signToken({
         id: user.id,
         email: user.email,
         role: user.role,
       });
+      
       res.status(200).json({ access_token: token });
     } catch (error) {
       console.log(error);

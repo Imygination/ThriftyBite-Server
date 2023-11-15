@@ -7,6 +7,7 @@ const Auth = require("./controllers/auth");
 const foods = require('./routes/foods');
 const orders = require('./routes/orders');
 const errorHandler = require("./middlewares/errorHandler");
+const stores = require("./routes/stores");
 const app = express();
 const port = 3000;
 
@@ -21,10 +22,9 @@ app.get("/", (req, res) => {
 //Mulai code disini
 app.post("/register", Auth.addUser);
 app.post("/login", Auth.loginAccount);
-
 app.use("/foods", foods)
-
 app.use("/orders", orders)
+app.use("/stores", stores)
 
 app.use(errorHandler);
 app.listen(port, () => {

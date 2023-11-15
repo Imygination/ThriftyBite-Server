@@ -27,7 +27,7 @@ class Controller {
                 totalPrice: totalPrice
             }, {transaction: t})
             
-            console.log(order)
+            // console.log(order)
 
             for (const key in counts) {
                 const foodOrder = await FoodOrder.create({
@@ -36,7 +36,7 @@ class Controller {
                     count: counts[key].count,
                     foodPrice: counts[key].price
                 }, {transaction: t})
-                console.log(foodOrder)
+                // console.log(foodOrder)
             }
 
             await t.commit()

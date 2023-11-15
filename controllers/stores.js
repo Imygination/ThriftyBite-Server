@@ -7,14 +7,14 @@ class Controller {
       const store = await Store.findAll();
       res.status(200).json(store);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
 
   static async addStore(req, res, next) {
     try {
-      console.log(req.body);
+      // console.log(req.body);
       const { name, address, location } = req.body;
       const store = await Store.create({
         name,
@@ -24,7 +24,7 @@ class Controller {
       });
       res.status(201).json(store);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
@@ -35,7 +35,7 @@ class Controller {
       const store = await Store.findOne({ where: { id }, include: Food });
       res.status(200).json(store);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }

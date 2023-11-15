@@ -23,7 +23,7 @@ class Controller {
       if (!passwordValid) {
         throw { name: "PasswordInvalid" };
       }
-      console.log(user);
+      // console.log(user);
       const token = signToken({
         id: user.id,
         email: user.email,

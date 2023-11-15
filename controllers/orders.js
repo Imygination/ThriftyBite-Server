@@ -1,4 +1,4 @@
-const {Order, FoodOrder, sequelize} = require('../models');
+const {Order, FoodOrder, Food, sequelize} = require('../models');
 class Controller {
     static async createOrder(req, res, next) {
         const t = await sequelize.transaction()
@@ -67,6 +67,37 @@ class Controller {
             })
 
             res.status(200).json({message: "Order has been updated"})
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getOrderById(req, res, next) {
+        try {
+            const {id} = req.params
+            const {id:userId} = req.user
+
+            const order = await Order.findByPk(id, {
+                include: {
+                    association: "FoodOrders",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                    include: {
+                        association: "Food",
+                        attributes: ["name"]
+                    }
+                }
+            })
+
+            if (!order) {
+                throw {name: "OrderNotFound"}
+            }
+            if (userId !== order.UserId) {
+                throw {name: "Unauthenticated"}
+            }
+
+            res.status(200).json(order)
         } catch (error) {
             next(error)
         }

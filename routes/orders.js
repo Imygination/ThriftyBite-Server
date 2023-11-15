@@ -7,4 +7,6 @@ router.post("/", authentication, Controller.createOrder)
 
 router.patch("/:id", authentication, Controller.updateOrder)
 
+router.get("/:id", authentication, Controller.getOrderById)
+
 module.exports = router

@@ -8,12 +8,15 @@ function errorHandler(error, request, response, next) {
     case "PasswordNull":
       response.status(400).json({ message: "Password is required" });
       break;
+    case "CartEmpty":
+      response.status(400).json({ message: "Cart cannot be empty" });
+      break;
+    case "StatusEmpty":
+      response.status(400).json({ message: "Status cannot be empty" });
+      break;
     case "UserNotFound":
     case "PasswordInvalid":
       response.status(401).json({ message: "Invalid email or password" });
-      break;
-    case "CartEmpty":
-      response.status(401).json({ message: "Cart cannot be empty" });
       break;
     case "Unauthenticated":
     case "JsonWebTokenError":
@@ -21,6 +24,9 @@ function errorHandler(error, request, response, next) {
       break;
     case "Forbidden":
       response.status(403).json({ message: "You are not authorized" });
+      break;
+    case "OrderNotFound":
+      response.status(404).json({ message: "Order nor found" });
       break;
     default:
       console.log(error)

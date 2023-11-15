@@ -11,7 +11,7 @@ class Controller {
 
             const counts = {}
             let totalPrice = 0
-            
+
             carts.forEach((el) => {
                 if (!counts[el.id]) {
                     counts[el.id]= {}
@@ -44,6 +44,31 @@ class Controller {
         } catch (error) {
             next(error)
             await t.rollback()
+        }
+    }
+
+    static async updateOrder(req, res, next) {
+        try {
+            const {id} = req.params
+            const {status} = req.body
+
+            if (!status) {
+                throw {name: "StatusEmpty"}
+            }
+
+            const order = await Order.findByPk(id)
+
+            if (!order) {
+                throw {name: "OrderNotFound"}
+            }
+
+            await order.update({
+                status: status
+            })
+
+            res.status(200).json({message: "Order has been updated"})
+        } catch (error) {
+            next(error)
         }
     }
 }

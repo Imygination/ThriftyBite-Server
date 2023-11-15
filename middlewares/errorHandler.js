@@ -26,7 +26,10 @@ function errorHandler(error, request, response, next) {
       response.status(403).json({ message: "You are not authorized" });
       break;
     case "OrderNotFound":
-      response.status(404).json({ message: "Order nor found" });
+      response.status(404).json({ message: "Order not found" });
+      break;
+    case "FoodNotFound":
+      response.status(404).json({ message: "Food not found" });
       break;
     default:
       console.log(error)

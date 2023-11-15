@@ -37,6 +37,10 @@ class Controller {
             const {id} = req.params
             const food = await Food.findByPk(id)
 
+            if (!food) {
+                throw {name: "FoodNotFound"}
+            }
+
             res.status(200).json(food)
         } catch (error) {
             next(error)

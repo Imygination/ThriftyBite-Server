@@ -1,4 +1,5 @@
 const { Food } = require('../models');
+const cloudinary = require('../helpers/cloudinary');
 
 class Controller {
     static async createFood(req, res, next) {
@@ -48,6 +49,20 @@ class Controller {
     }
 
 
+    static uploadImage(req, res) {
+        console.log("image received")
+        cloudinary.uploader.upload(req.file.path, function (err, result){
+            if(err) {
+                console.log(err);
+                return res.status(500).json({
+                success: false,
+                message: "Error"
+                })
+            }
+        
+            res.status(200).json(result)
+        })
+    }
 
 
     // Violate key value constraint. maybe don't delete for order history

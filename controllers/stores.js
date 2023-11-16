@@ -50,6 +50,26 @@ class Controller {
       next(error);
     }
   }
+
+  static async getStoreByLoggedInUser(req, res, next) {
+    try {
+      const id = req.user.id;
+      const store = await Store.findOne({
+        where: { 
+          UserId: id
+        },
+        include: Food 
+        });
+
+      if (!store) {
+        throw {name: "StoreNotFound"}
+      }
+      res.status(200).json(store);
+    } catch (error) {
+      // console.log(error);
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;

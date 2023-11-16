@@ -33,6 +33,9 @@ function errorHandler(error, request, response, next) {
     case "FoodNotFound":
       response.status(404).json({ message: "Food not found" });
       break;
+    case "StoreNotFound":
+      response.status(404).json({ message: "Store not found" });
+      break;
     default:
       console.log(error)
       response.status(500).json({ message: "Internal server error" });

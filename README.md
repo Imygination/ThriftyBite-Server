@@ -4,11 +4,14 @@
     - [POST /register](#post-register)
     - [POST /login](#post-login)
     - [POST /stores](#post-stores)
+    - [GET /stores](#get-stores)
+    - [GET /stores/users](#get-storesusers)
     - [GET /stores/:id](#get-storesid)
     - [POST /foods](#post-foods)
     - [GET /foods](#get-foods)
     - [GET /foods/:id](#get-foodsid)
     - [POST /orders](#post-orders)
+    - [GET /orders](#get-orders)
     - [PATCH /orders/:id](#patch-ordersid)
     - [GET /orders/:id](#get-ordersid)
 
@@ -105,6 +108,68 @@
     "name": "string",
     "location": "Geometry(Point)"
 }
+
+```
+### GET /stores
+
+> To get all stores
+
+-   headers
+
+```
+    not needed
+```
+
+-   response (200)
+
+```json
+[
+    {
+        "name": "string",
+        "address": "string",
+        "name": "string",
+        "UserId": "integer",
+        "location": "Geometry(Point)"
+    },
+    ...,
+]
+```
+
+### GET /stores/users
+
+> To get a store by logged in user (seller)
+
+-   headers
+
+```json
+{
+    "access_token": "string"
+}
+```
+
+-   response (200)
+
+```json
+{
+    "name": "string",
+    "address": "string",
+    "name": "string",
+    "UserId": "integer",
+    "location": "Geometry(Point)",
+    "Food": [
+        {
+            "id": "integer",
+            "name": "string",
+            "imageUrl": "string",
+            "description": "string",
+            "price": "integer",
+            "stock": "integer",
+            "UserId": "integer",
+            "StoreId": "integer",
+        },
+        ...,
+    ]
+}
 ```
 
 ### GET /stores/:id
@@ -135,9 +200,14 @@
     "location": "Geometry(Point)",
     "Foods": [
         {
+            "id": "integer",
             "name": "string",
             "imageUrl": "string",
-            "price": "integer"
+            "description": "string",
+            "price": "integer",
+            "stock": "integer",
+            "UserId": "integer",
+            "StoreId": "integer",
         },
         ...,
     ]
@@ -293,6 +363,46 @@
 {
     "message": "Order created"
 }
+```
+
+### GET /orders
+
+> To get all order by logged in users
+
+
+-   headers
+
+```json
+{
+    "access_token": "string"
+}
+```
+
+-   response (201)
+
+```json
+[
+    {
+        "id": "integer",
+        "UserId": "integer",
+        "status": "string",
+        "totalPrice": "integer",
+        "FoodOrders": [
+            {
+                "id": "integer",
+                "FoodId": "integer",
+                "OrderId": "integer",
+                "count": "integer",
+                "foodPrice": "integer",
+                "Food": {
+                    "name": "string"
+                }
+            },
+            ...,
+        ]
+    },
+    ...,
+]
 ```
 
 ### PATCH /orders/:id

@@ -5,6 +5,8 @@ const router = express.Router()
 
 router.post("/", authentication, Controller.createOrder)
 
+router.get("/", authentication, Controller.getAllOrder)
+
 router.patch("/:id", authentication, Controller.updateOrder)
 
 router.get("/:id", authentication, Controller.getOrderById)

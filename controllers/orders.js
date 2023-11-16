@@ -27,7 +27,7 @@ class Controller {
                 totalPrice: totalPrice
             }, {transaction: t})
             
-            console.log(order)
+            // console.log(order)
 
             for (const key in counts) {
                 const foodOrder = await FoodOrder.create({
@@ -36,7 +36,7 @@ class Controller {
                     count: counts[key].count,
                     foodPrice: counts[key].price
                 }, {transaction: t})
-                console.log(foodOrder)
+                // console.log(foodOrder)
             }
 
             await t.commit()
@@ -98,6 +98,34 @@ class Controller {
             }
 
             res.status(200).json(order)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getAllOrder(req, res, next) {
+        try {
+            const {id} = req.user
+            const orders = await Order.findAll({
+                where: {
+                    UserId: id
+                },
+                include: {
+                    association: "FoodOrders",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                    include: {
+                        association: "Food",
+                        attributes: ["name"]
+                    }
+                }
+            })
+
+            if (!orders) {
+                throw {name: "OrderNotFound"}
+            }
+            res.status(200).json(orders)
         } catch (error) {
             next(error)
         }

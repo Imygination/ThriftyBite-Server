@@ -46,6 +46,26 @@ class Controller {
             next(error)
         }
     }
+
+
+
+
+    // Violate key value constraint. maybe don't delete for order history
+
+    // static async deleteFoodById(req, res, next) {
+    //     try {
+    //         const {id} = req.params
+    //         const {StoreId} = req.user
+    //         const food = await Food.findByPk(id)
+    //         if (food.StoreId !== StoreId) {
+                
+    //         }
+    //         await food.destroy()
+    //         res.status(200).json({message: "Food has been deleted"})
+    //     } catch (error) {
+    //         next(error)
+    //     }
+    // }
 }
 
 module.exports = Controller

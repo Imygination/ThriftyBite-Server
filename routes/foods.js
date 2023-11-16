@@ -10,4 +10,6 @@ router.post("/", authentication, authorization, Foods.createFood)
 
 router.get("/:id", Foods.getFoodById)
 
+// router.delete("/:id", authentication, authorization, Foods.deleteFoodById)
+
 module.exports = router

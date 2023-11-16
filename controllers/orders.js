@@ -102,6 +102,34 @@ class Controller {
             next(error)
         }
     }
+
+    static async getAllOrder(req, res, next) {
+        try {
+            const {id} = req.user
+            const orders = await Order.findAll({
+                where: {
+                    UserId: id
+                },
+                include: {
+                    association: "FoodOrders",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                    include: {
+                        association: "Food",
+                        attributes: ["name"]
+                    }
+                }
+            })
+
+            if (!orders) {
+                throw {name: "OrderNotFound"}
+            }
+            res.status(200).json(orders)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = Controller

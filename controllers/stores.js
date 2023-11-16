@@ -43,7 +43,12 @@ class Controller {
   static async getStoreById(req, res, next) {
     try {
       const id = req.params.id;
-      const store = await Store.findOne({ where: { id }, include: Food });
+      const store = await Store.findByPk(id, {
+        include: Food 
+      })
+      if (!store) {
+        throw {name: "StoreNotFound"}
+      }
       res.status(200).json(store);
     } catch (error) {
       // console.log(error);

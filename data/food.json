@@ -1,0 +1,183 @@
+[
+    {
+      "name": "Chocolate De Ville",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/3/10/av6x9jrxpebjnfdkwgkm6y_size_480_webp.webp",
+      "description": "Bentuk kebahagiaan sempurna untuk pecinta cokelat. Cake, krim, serta topping cokelat yang berlimpah!",
+      "price": 395000,
+      "stock": 12,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Avocado Genoise D20",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/7/4/k9osszjhn2bp96ouw49q5f_size_480.jpg",
+      "description": "Chocolate sponge cake as a base with avocado mousse. Topped with avocado glaze & macaron.",
+      "price": 395000,
+      "stock": 5,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Cheesecake Flurry D20",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/1/26/eeb4pjdqsttk9awc95br54_size_480_webp.webp",
+      "description": "Mousse cheese mixed with oreo crumbs on top of an oreo cookie base. The cheese was baked at a high temperature to create a basque cheesecake texture.",
+      "price": 395000,
+      "stock": 3,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Chocolate Booster Cake D20",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/8/29/bb4nyhafrwigoolka7wnrj_size_480_webp.webp",
+      "description": "Sponge cake berlapis chocolate mousse dan cream cheese yang lembut dengan topping remahan oreo di atasnya, pasti naikkan mood kamu!",
+      "price": 330000,
+      "stock": 6,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Chocolate Tiramisu",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/7/13/gdf26jq4vwwtnnc9wsdb5h_size_480_webp.webp",
+      "description": "Kombinasi soft chocolate sponge cake yang direndam dengan sirup rasa kopi ditambah mousse rasa kopi dan dark chocolate pada bagian atasnya. Topping fresh cream, kacang mede dan bubuk kakao memperkuat cita rasa yang dihasilkan.",
+      "price": 215000,
+      "stock": 8,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Triple Chocolate",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/3/15/gkelwhtcnpdqpl4eauymgw_size_480_webp.webp",
+      "description": "Sensasi kelezatan cake tiga kali lipat yang hadir dari dark, white, dan milk chocolate.",
+      "price": 215000,
+      "stock": 7,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Milk Chocolate",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/3/10/q2qy3bqlfw5lup5rjkuh8s_size_480_webp.webp",
+      "description": "Sponge cake dengan rasa cokelat susu berlapis cokelat dengan cita rasa khas di bagian luarnya.",
+      "price": 330000,
+      "stock": 2,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Vanilla Fruit",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/8/18/usz7crqy8zvxdyrrjceytk_size_480_webp.webp",
+      "description": "Kelezatan krim vanila di antara sponge cake vanila, dengan topping berbagai potongan buah.",
+      "price": 330000,
+      "stock": 3,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "High Fiber Strawberry Oats",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/8/16/jwpcfcxmx7mmpyrebh7uqj_size_480_webp.webp",
+      "description": "Nutrisi lezat untuk gaya hidup padat gizimu! Perpaduan oat dengan fiber tinggi, strawberry segar dan krim cheese yang lembut.",
+      "price": 255000,
+      "stock": 2,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Less Sugar Triple Chocolate",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/8/18/vylacntkn8nfejtf6tevzb_size_480_webp.webp",
+      "description": "Guilt-free layers of fudgy brownies and moist, rich chocolate mousse for your active lifestyle.",
+      "price": 255000,
+      "stock": 2,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Mango Coconut Gluten Free D20",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2022/8/18/ksrjniykaibqdbxwz4u6cg_size_480_webp.webp",
+      "description": "Guilt-free vanilla cake layered with crunchy coconut, mango jelly, and brown sugar coconut mousse topped with mango glaze. Perfect choice for health-conscious people.",
+      "price": 390000,
+      "stock": 3,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Ayam cabe ijo Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/mje8j3gazmx3tkvkh9phw4_size_480_webp.webp",
+      "description": "Experience the taste of Indonesian culinary delight in our Ayam Cabe Ijo Bun.",
+      "price": 18000,
+      "stock": 15,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Vegetable Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/ixgy9z9hpxanlr5zajgc5d_size_480_webp.webp",
+      "description": "Natural flavor with nutritional benefits of vegetables, making it a guilt-free indulgence you can enjoy any time.",
+      "price": 18000,
+      "stock": 20,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Pisang Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/uunjehqsbckgzstxqyv9tm_size_480_webp.webp",
+      "description": "Tropical goodness comes from generously stuffed bananas wrapped in the soft texture of a bun.",
+      "price": 15000,
+      "stock": 25,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Keju Susu Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/x8bysfpmql9mjsxwmpw5at_size_480_webp.webp",
+      "description": "Harmonious blend of milk and cheese, creating a luxury and irresistible taste for cheese lovers.",
+      "price": 15000,
+      "stock": 12,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Keju Coklat Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/f6v5dhy6zn2bzg4aj8udmk_size_480_webp.webp",
+      "description": "Sweetness and savory indulgence with our richness of chocolate and the creamy, melt-in-your-mouth goodness of cheese.",
+      "price": 12000,
+      "stock": 8,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Kacang Hijau Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/43ycycu6wy8vvzyvuryfdi_size_480_webp.webp",
+      "description": "Natural earthiness and creaminess of mung beans, creating a delightful and satisfying treat.",
+      "price": 15000,
+      "stock": 15,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Coklat Pisang Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/3mneu4rryt2ctzyre3wajt_size_480_webp.webp",
+      "description": "Sheer indulgence with the natural sweetness and aroma of ripe bananas blends with the richness of chocolate.",
+      "price": 18000,
+      "stock": 18,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Coklat Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/7mhywchzswifhfv7sp7lfb_size_480_webp.webp",
+      "description": "Satisfy your chocolate cravings with the irresistible allure of premium chocolate sprinkles and fluffy buns.",
+      "price": 15000,
+      "stock": 15,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Baso Ayam Bun",
+      "imageUrl": "https://omni.harvestcakes.com/media/thumb/product_photo/2023/9/8/eqys7kkuldbltpsrkhznfk_size_480_webp.webp",
+      "description": "Delightful pastry that features savory chicken meatballs nestled inside a soft bun.",
+      "price": 18000,
+      "stock": 20,
+      "UserId": 1,
+      "StoreId": 1
+    }
+  ]
+  

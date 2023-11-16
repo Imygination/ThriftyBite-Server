@@ -1,4 +1,4 @@
-const { Store, Food } = require("../models");
+const { Store, Food, Sequelize } = require("../models");
 
 class Controller {
     
@@ -15,17 +15,28 @@ class Controller {
   static async addStore(req, res, next) {
     try {
       // console.log(req.body);
-      const { name, address, location } = req.body;
+      const { name, address, latitude, longitude } = req.body;
+      // console.log({
+      //   longitude,
+      //   latitude
+      // })
       const store = await Store.create({
         name,
         address,
-        location,
+        location: Sequelize.fn(
+          'ST_GeomFromText',
+          `POINT(${longitude} ${latitude})`
+        ),
         UserId: req.user.id,
       });
       res.status(201).json(store);
     } catch (error) {
       // console.log(error);
-      next(error);
+      if (error.name === "SequelizeDatabaseError") {
+        res.status(400).json({message: error.message})
+      } else {
+        next(error);
+      }
     }
   }
 

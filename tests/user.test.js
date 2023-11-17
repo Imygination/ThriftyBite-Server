@@ -11,9 +11,15 @@ const user1 = {
     role:"seller"
 };
 
+beforeAll(async () => {
+  await request(app)
+      .post("/register")
+      .send(user1)
+})
+
 afterAll((done) => {
   queryInterface
-    .bulkDelete('Users', null, { restartIdentity: true, truncate: true})
+    .bulkDelete('Users', null, {cascade: true, restartIdentity: true, truncate: true})
     .then(() => {
       done();
     })
@@ -28,7 +34,7 @@ describe("User Routes Test", () => {
       request(app)
         .post("/register")
         .send({
-            email: "user.test1@mail.com",
+            email: "user.test2@mail.com",
             username: "User Test",
             password: "usertest",
             phoneNumber:"0819 5644 2993",
@@ -39,7 +45,7 @@ describe("User Routes Test", () => {
           const { body, status } = res;
 
           expect(status).toBe(201);
-          expect(body).toHaveProperty("email", "user.test1@mail.com");
+          expect(body).toHaveProperty("email", "user.test2@mail.com");
           return done();
         });
         });

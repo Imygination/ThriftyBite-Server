@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const { User, Store } = require("../models");
+const { User, Food , Store } = require("../models");
 const { signToken } = require("../helpers/jwt");
 
 let validToken, validToken2, invalidToken ,validToken3
@@ -53,21 +53,9 @@ beforeAll((done) => {
             "UserId": 1
           },
           {
-            "name": "User 1 toko 2",
-            "address": "Jakarta Selatan",
-            "location": "POINT(107.59278847659893 -6.942981263106864)",
-            "UserId": 1
-          },
-          {
             "name": "User 2 toko ",
             "address": "Jakarta Timur",
             "location": "POINT(107.5925576773082 -6.940669415817259)",
-            "UserId": 2
-          },
-          {
-            "name": "User 2 toko 2",
-            "address": "Jakarta Barat",
-            "location": "POINT(107.59422277037818 -6.937911900280693)",
             "UserId": 2
           }
         ],
@@ -84,6 +72,49 @@ beforeAll((done) => {
         id: registeredUser3.id,
         email: registeredUser3.email,
       });
+      return Food.bulkCreate(
+        [
+          {
+            "name": "Ikan Goreng",
+            "imageUrl": "gambar ikan",
+            "description": "Ikan Sarden dimasak goreng abis",
+            "UserId": 1 ,
+            "StoreId": 1,
+            "price": 20000,
+            "stock": 32,
+          },
+          {
+            "name": "Mie Goreng",
+            "imageUrl": "Gambar Mie",
+            "description": "Produk indonesia paling mantap",
+            "UserId": 1,
+            "StoreId": 2,
+            "price": 5000,
+            "stock": 80,
+          },
+          {
+            "name": "Steak Ayam",
+            "imageUrl": "Gambar Steak",
+            "description": "Daging di goreng diatas arang",
+            "UserId": 2 ,
+            "StoreId": 1,
+            "price": 67000,
+            "stock": 15,
+          },
+          {
+            "name": "Sushi",
+            "imageUrl": "Gambar Sushi",
+            "description": "Makanan jepang nasi dibungkus rumput laut",
+            "UserId": 2 ,
+            "StoreId": 2,
+            "price": 44000,
+            "stock": 24,
+          }
+        ],
+        {
+          ignoreDuplicates: true,
+        }
+      );
     })
     .then(()=>{
       done()
@@ -99,6 +130,9 @@ afterAll(done => {
       return Store.destroy({ truncate: true, cascade: true, restartIdentity: true })
     })
     .then(_ => {
+        return Food.destroy({ truncate: true, cascade: true, restartIdentity: true })
+      })
+    .then(_ => {
       done();
     })
     .catch(err => {
@@ -106,10 +140,10 @@ afterAll(done => {
     });
 });
 
-describe("GET /stores", () => {
-  test("200 success GET stores", (done) => {
+describe("GET /foods", () => {
+  test("200 success GET foods", (done) => {
     request(app)
-      .get("/stores")
+      .get("/foods")
       .then((response) => {
         const { body, status } = response;
 
@@ -123,15 +157,17 @@ describe("GET /stores", () => {
       });
   });
 
-  test("200 success GET stores by id", (done) => {
+  test("200 success GET foods by id", (done) => {
     request(app)
-      .get("/stores/1")
+      .get("/foods/1")
       .then((response) => {
         const { body, status } = response;
 
         expect(status).toBe(200);
         expect(typeof body).toBe('object');
-        expect(body).toHaveProperty("Food", expect.any(Array));
+        expect(body).toHaveProperty("Store", expect.any(Object));
+        expect(body).toHaveProperty("id", expect.any(Number));
+        expect(body).toHaveProperty("UserId", expect.any(Number));
         done();
       })
       .catch((err) => {
@@ -139,14 +175,14 @@ describe("GET /stores", () => {
       });
   });
 
-  test("404 error GET store by id Not Found", (done) => {
+  test("404 error GET food by id Not Found", (done) => {
     request(app)
-      .get("/stores/100")
+      .get("/foods/100")
       .then((response) => {
         const { body, status } = response;
 
         expect(status).toBe(404);
-        expect(body).toHaveProperty("message", "Store not found");
+        expect(body).toHaveProperty("message", "Food not found");
         done();
       })
       .catch((err) => {
@@ -154,15 +190,17 @@ describe("GET /stores", () => {
       });
   });
 
-  test("201 success POST stores", (done) => {
+  test("201 success POST foods", (done) => {
     request(app)
-      .post(`/stores`)
+      .post(`/foods`)
       .send({
-        "name": "Test for Post",
-        "address": "Jakarta Utara",
-        "longitude": 107.5904275402039,
-        "latitude": -6.9439994342171225,
-        "UserId": 1
+        "name": "Nasi Goreng",
+        "imageUrl": "Gambar Nasi Goreng",
+        "description": "nasi di Goreng",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 23000,
+        "stock": 15,
         })
       .set("access_token", validToken)
       .then((response) => {
@@ -171,8 +209,10 @@ describe("GET /stores", () => {
         expect(status).toBe(201);
         expect(body).toHaveProperty("id", expect.any(Number));
         expect(body).toHaveProperty("UserId", expect.any(Number));
-        expect(body).toHaveProperty("name", "Test for Post");
-        expect(body).toHaveProperty("location", {"coordinates": [107.5904275402039, -6.9439994342171225], "type": "Point"});
+        expect(body).toHaveProperty("StoreId", expect.any(Number));
+        expect(body).toHaveProperty("name", "Nasi Goreng");
+        expect(body).toHaveProperty("price", expect.any(Number));
+        expect(body).toHaveProperty("stock", expect.any(Number));
         done();
       })
       .catch((err) => {
@@ -180,15 +220,17 @@ describe("GET /stores", () => {
       });
   });
 
-  test("401 POST store with invalid token", (done) => {
+  test("401 POST foods with invalid token", (done) => {
     request(app)
-      .post(`/stores`)
+      .post(`/foods`)
       .send({
-        "name": "Test for Post",
-        "address": "Jakarta Utara",
-        "longitude": 107.5904275402039,
-        "latitude": -6.9439994342171225,
-        "UserId": 1
+        "name": "Nasi Goreng",
+        "imageUrl": "Gambar Nasi Goreng",
+        "description": "nasi di Goreng",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 23000,
+        "stock": 15,
         })
       .set("access_token", invalidToken)
       .then((response) => {
@@ -203,15 +245,17 @@ describe("GET /stores", () => {
       });
   });
 
-  test("401 POST store without token", (done) => {
+  test("401 POST foods without token", (done) => {
     request(app)
-      .post(`/stores`)
+      .post(`/foods`)
       .send({
-        "name": "Test for Post",
-        "address": "Jakarta Utara",
-        "longitude": 107.5904275402039,
-        "latitude": -6.9439994342171225,
-        "UserId": 1
+        "name": "Nasi Goreng",
+        "imageUrl": "Gambar Nasi Goreng",
+        "description": "nasi di Goreng",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 23000,
+        "stock": 15,
         })
       .then((response) => {
         const { body, status } = response;
@@ -224,64 +268,6 @@ describe("GET /stores", () => {
         done(err);
       });
   });
-
-  test("400 POST store Database error", (done) => {
-    request(app)
-      .post(`/stores`)
-      .send({
-        "name": "Test for Post",
-        "address": "Jakarta Utara",
-        "longitude": "test longitude",
-        "latitude": "test latitude",
-        "UserId": 1
-        })
-        .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("200 success GET stores by Logged in User", (done) => {
-    request(app)
-      .get("/stores/users")
-      .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("UserId", expect.any(Number));
-        expect(body).toHaveProperty("name", expect.any(String));
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("404 failed GET stores by Logged in User", (done) => {
-    request(app)
-      .get("/stores/users")
-      .set("access_token", validToken3)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("message", "Store not found");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
 
 });
 

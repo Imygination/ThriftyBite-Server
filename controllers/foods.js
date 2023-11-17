@@ -1,4 +1,4 @@
-const { Food } = require('../models');
+const { Food, Store } = require('../models');
 const cloudinary = require('../helpers/cloudinary');
 
 class Controller {
@@ -25,7 +25,14 @@ class Controller {
 
     static async getAllFoods(req, res, next) {
         try {
-            const foods = await Food.findAll()
+            const foods = await Food.findAll({
+                include: {
+                    model: Store,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                }
+            })
 
             res.status(200).json(foods)
         } catch (error) {
@@ -36,7 +43,14 @@ class Controller {
     static async getFoodById(req, res, next) {
         try {
             const {id} = req.params
-            const food = await Food.findByPk(id)
+            const food = await Food.findByPk(id, {
+                include: {
+                    model: Store,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                }
+            })
 
             if (!food) {
                 throw {name: "FoodNotFound"}

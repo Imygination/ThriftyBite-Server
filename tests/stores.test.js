@@ -16,8 +16,8 @@ const userTest2 = {
   email: "user.test2@mail.com",
   password: "usertest2",
   username: "User Test2",
-    phoneNumber:"0819 5644 2334",
-    role:"seller"
+  phoneNumber:"0819 5644 2334",
+  role:"seller"
 };
 
 beforeAll((done) => {
@@ -128,7 +128,8 @@ describe("GET /stores", () => {
       .send({
         "name": "Test for Post",
         "address": "Jakarta Utara",
-        "location": "POINT(107.5904275402039 -6.9439994342171225)",
+        "longitude": 107.5904275402039,
+        "latitude": -6.9439994342171225,
         "UserId": 1
         })
       .set("access_token", validToken)

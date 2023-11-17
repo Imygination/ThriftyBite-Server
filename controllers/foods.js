@@ -43,7 +43,14 @@ class Controller {
     static async getFoodById(req, res, next) {
         try {
             const {id} = req.params
-            const food = await Food.findByPk(id)
+            const food = await Food.findByPk(id, {
+                include: {
+                    model: Store,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                }
+            })
 
             if (!food) {
                 throw {name: "FoodNotFound"}

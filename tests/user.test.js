@@ -11,9 +11,15 @@ const user1 = {
     role:"seller"
 };
 
+beforeAll(async () => {
+  await request(app)
+      .post("/register")
+      .send(user1)
+})
+
 afterAll((done) => {
   queryInterface
-    .bulkDelete('Users', null, { restartIdentity: true, truncate: true})
+    .bulkDelete('Users', null, {cascade: true, restartIdentity: true, truncate: true})
     .then(() => {
       done();
     })
@@ -28,7 +34,7 @@ describe("User Routes Test", () => {
       request(app)
         .post("/register")
         .send({
-            email: "user.test1@mail.com",
+            email: "user.test2@mail.com",
             username: "User Test",
             password: "usertest",
             phoneNumber:"0819 5644 2993",
@@ -39,7 +45,7 @@ describe("User Routes Test", () => {
           const { body, status } = res;
 
           expect(status).toBe(201);
-          expect(body).toHaveProperty("email", "user.test1@mail.com");
+          expect(body).toHaveProperty("email", "user.test2@mail.com");
           return done();
         });
         });
@@ -113,7 +119,7 @@ describe("User Routes Test", () => {
         });
     });
 
-    test("401 Failed login - should return error", (done) => {
+    test("401 Failed login - should return error if password is wrong", (done) => {
       request(app)
         .post("/login")
         .send({
@@ -126,6 +132,38 @@ describe("User Routes Test", () => {
 
           expect(status).toBe(401);
           expect(body).toHaveProperty("message", "Invalid email or password");
+          return done();
+        });
+    });
+
+    test("401 Failed login - should return error if email is null", (done) => {
+      request(app)
+        .post("/login")
+        .send({
+          password: "salahpassword",
+        })
+        .end((err, res) => {
+          if (err) return done(err);
+          const { body, status } = res;
+
+          expect(status).toBe(400);
+          expect(body).toHaveProperty("message", "Email is required");
+          return done();
+        });
+    });
+
+    test("401 Failed login - should return error if password is null", (done) => {
+      request(app)
+        .post("/login")
+        .send({
+          email: "hello@mail.com",
+        })
+        .end((err, res) => {
+          if (err) return done(err);
+          const { body, status } = res;
+
+          expect(status).toBe(400);
+          expect(body).toHaveProperty("message", "Password is required");
           return done();
         });
     });

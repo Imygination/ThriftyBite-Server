@@ -119,7 +119,7 @@ describe("User Routes Test", () => {
         });
     });
 
-    test("401 Failed login - should return error", (done) => {
+    test("401 Failed login - should return error if password is wrong", (done) => {
       request(app)
         .post("/login")
         .send({
@@ -132,6 +132,38 @@ describe("User Routes Test", () => {
 
           expect(status).toBe(401);
           expect(body).toHaveProperty("message", "Invalid email or password");
+          return done();
+        });
+    });
+
+    test("401 Failed login - should return error if email is null", (done) => {
+      request(app)
+        .post("/login")
+        .send({
+          password: "salahpassword",
+        })
+        .end((err, res) => {
+          if (err) return done(err);
+          const { body, status } = res;
+
+          expect(status).toBe(400);
+          expect(body).toHaveProperty("message", "Email is required");
+          return done();
+        });
+    });
+
+    test("401 Failed login - should return error if password is null", (done) => {
+      request(app)
+        .post("/login")
+        .send({
+          email: "hello@mail.com",
+        })
+        .end((err, res) => {
+          if (err) return done(err);
+          const { body, status } = res;
+
+          expect(status).toBe(400);
+          expect(body).toHaveProperty("message", "Password is required");
           return done();
         });
     });

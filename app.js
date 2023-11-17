@@ -27,8 +27,8 @@ app.use("/orders", orders)
 app.use("/stores", stores)
 
 app.use(errorHandler);
-// app.listen(port, () => {
-//   console.log(`App listening on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
 
 module.exports = app

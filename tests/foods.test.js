@@ -3,7 +3,7 @@ const app = require("../app");
 const { User, Food , Store } = require("../models");
 const { signToken } = require("../helpers/jwt");
 
-let validToken, validToken2, invalidToken ,validToken3
+let validToken, validToken2, invalidToken ,validToken3, invalidToken2
 const userTest1 = {
     email: "user.test1@mail.com",
     password: "usertest1",
@@ -26,6 +26,14 @@ const userTest3 = {
   username: "User Test3",
   phoneNumber:"0819 5644 2334",
   role:"seller"
+};
+
+const userTest4 = {
+  email: "user.test4@mail.com",
+  password: "usertest4",
+  username: "User Test4",
+  phoneNumber:"0819 5644 2334",
+  role:"user"
 };
 
 beforeAll((done) => {
@@ -115,6 +123,15 @@ beforeAll((done) => {
           ignoreDuplicates: true,
         }
       );
+    })
+    .then(() => {
+      return User.create(userTest4)
+    })
+    .then((registeredUser4) => {
+      invalidToken2 = signToken({
+        id: registeredUser4.id,
+        email: registeredUser4.email,
+      });
     })
     .then(()=>{
       done()
@@ -220,6 +237,30 @@ describe("GET /foods", () => {
       });
   });
 
+  test("400 POST foods with empty body", (done) => {
+    request(app)
+      .post(`/foods`)
+      .send({
+        "imageUrl": "Gambar Nasi Goreng",
+        "description": "nasi di Goreng",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 23000,
+        "stock": 15,
+        })
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Name cannot be empty");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   test("401 POST foods with invalid token", (done) => {
     request(app)
       .post(`/foods`)
@@ -263,6 +304,31 @@ describe("GET /foods", () => {
         expect(status).toBe(401);
         expect(body).toHaveProperty("message", "Unauthenticated");
         done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("401 POST foods with unauthorized token", (done) => {
+    request(app)
+      .post(`/foods`)
+      .send({
+        "name": "Nasi Goreng",
+        "imageUrl": "Gambar Nasi Goreng",
+        "description": "nasi di Goreng",
+        "UserId": 4 ,
+        "StoreId": 1,
+        "price": 23000,
+        "stock": 15,
+        })
+        .set("access_token", invalidToken2)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(403);
+        expect(body).toHaveProperty("message", "You are not authorized");
+        done()
       })
       .catch((err) => {
         done(err);

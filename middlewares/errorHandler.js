@@ -16,6 +16,9 @@ function errorHandler(error, request, response, next) {
     case "StatusEmpty":
       response.status(400).json({ message: "Status cannot be empty" });
       break;
+    case "LongLatEmpty":
+      response.status(400).json({ message: "Longitude and Latitude cannot be empty" });
+      break;
     case "UserNotFound":
     case "PasswordInvalid":
       response.status(401).json({ message: "Invalid email or password" });

@@ -331,22 +331,18 @@
 -   request
 
 ```json
-// carts with array of foods
-{
-    "carts": [
-        {
-            "name": "string",
-            "imageUrl": "string",
-            "price": "integer",
-            "UserId": "integer",
-            "StoreId": "integer",
-            "Store": {
-                "location": "Geometry(Point)"
-            }
-        },
-        ...
-    ]
-}
+//array
+[ 
+    {
+        "count": "integer",
+        "foodId": "integer", //ini emang f kecil
+        "imageUrl": "string",
+        "itemPrice": "integer",
+        "name": "string",
+        "price": "integer"
+    },
+    ...,
+]
 ```
 
 -   headers
@@ -361,7 +357,10 @@
 
 ```json
 {
-    "message": "Order created"
+    "id": "integer",
+    "UserId": "integer",
+    "status": "active",
+    "totalPrice": "integer"
 }
 ```
 

@@ -30,7 +30,7 @@ class Controller {
                 transaction: t
             })
             await t.commit()
-            res.status(201).json({message: "Order created"})
+            res.status(201).json(order)
         } catch (error) {
             next(error)
             await t.rollback()

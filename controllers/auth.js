@@ -30,7 +30,7 @@ class Controller {
         role: user.role,
       });
       
-      res.status(200).json({ access_token: token });
+      res.status(200).json({ access_token: token, userId:user.id });
     } catch (error) {
       // console.log(error);
       next(error);

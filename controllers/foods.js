@@ -34,10 +34,15 @@ class Controller {
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
+                },
+                where: {
+                    stock: {
+                        [Op.gt]: 0
+                    }
                 }
             }
-            option.where = {
-                name: {
+            if (search) {
+                option.where.name = {
                     [Op.iLike]: `%${search}%`
                 }
             }

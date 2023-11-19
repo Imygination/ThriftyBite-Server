@@ -6,6 +6,7 @@
     - [POST /stores](#post-stores)
     - [GET /stores](#get-stores)
     - [GET /stores/users](#get-storesusers)
+    - [GET /stores/location](#get-storeslocation)
     - [GET /stores/:id](#get-storesid)
     - [POST /foods](#post-foods)
     - [GET /foods](#get-foods)
@@ -85,8 +86,8 @@
 {
     "name": "string", //required
     "address": "string", //required
-    "latitude": "string", //required
-    "longitude": "string", //required
+    "latitude": "float", //required
+    "longitude": "float", //required
     "UserId": "string" //required
 }
 ```
@@ -169,6 +170,32 @@
         },
         ...,
     ]
+}
+
+```
+### GET /stores/location
+
+> To get a store by location proximity
+
+-   request query
+
+```json
+{
+    "longitude": "float",
+    "latitude": "float"
+}
+```
+
+-   response (200)
+
+```json
+{
+    "id": "integer",
+    "name": "string",
+    "address": "string",
+    "name": "string",
+    "UserId": "integer",
+    "location": "Geometry(Point)"
 }
 ```
 

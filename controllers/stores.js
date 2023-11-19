@@ -1,4 +1,4 @@
-const { Store, Food, Sequelize } = require("../models");
+const { Store, Food, Sequelize, sequelize } = require("../models");
 
 class Controller {
     
@@ -73,6 +73,43 @@ class Controller {
     } catch (error) {
       // console.log(error);
       next(error);
+    }
+  }
+
+  static async getStoreByProximity(req, res, next) {
+    try {
+      const {longitude, latitude} = req.query
+      const distance = 5000
+      if (!longitude || !latitude) {
+        throw {name: "LongLatEmpty"}
+      }
+      
+      const stores = await sequelize.query(
+        `
+        SELECT id, name, address, location, "UserId"
+        FROM "Stores"
+        WHERE
+          ST_DWithin(
+            location,
+            ST_MakePoint(:long,:lat),
+            :distance,
+            true) = true;`,
+        {
+          replacements: {
+            distance: +distance,
+            long: parseFloat(longitude),
+            lat: parseFloat(latitude),
+          },
+          logging: console.log,
+          plain: false,
+          raw: false,
+          type: sequelize.QueryTypes.SELECT,
+        }
+      )
+      
+      res.status(200).json(stores)
+    } catch (error) {
+      next(error)
     }
   }
 }

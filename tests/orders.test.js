@@ -267,22 +267,6 @@ describe("GET /orders", () => {
       });
   });
 
-  test("404 orders not Found", (done) => {
-    request(app)
-      .get("/orders")
-      .set("access_token", validToken3)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("message", "Order not found");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
   test("200 success GET orders by id", (done) => {
     request(app)
       .get("/orders/2")

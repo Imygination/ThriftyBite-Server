@@ -1,5 +1,6 @@
 const { Food, Store } = require('../models');
 const cloudinary = require('../helpers/cloudinary');
+const { Op } = require('sequelize');
 
 class Controller {
     static async createFood(req, res, next) {
@@ -25,14 +26,27 @@ class Controller {
 
     static async getAllFoods(req, res, next) {
         try {
-            const foods = await Food.findAll({
+            const {search} = req.query
+            console.log(search)
+            let option = {
                 include: {
                     model: Store,
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
+                },
+                where: {
+                    stock: {
+                        [Op.gt]: 0
+                    }
                 }
-            })
+            }
+            if (search) {
+                option.where.name = {
+                    [Op.iLike]: `%${search}%`
+                }
+            }
+            const foods = await Food.findAll(option)
 
             res.status(200).json(foods)
         } catch (error) {

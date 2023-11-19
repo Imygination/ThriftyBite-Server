@@ -304,6 +304,44 @@ describe("GET /stores", () => {
       });
   });
 
+  test("200 success GET stores location", (done) => {
+    request(app)
+      .get(`/stores/location`)
+      .query({
+        "longitude": 107.5904275402039,
+        "latitude": -6.9439994342171225,
+        })
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(200);
+        expect(Array.isArray(body)).toBeTruthy();
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("404 GET stores location with empty body", (done) => {
+    request(app)
+      .get(`/stores/location`)
+      .query({
+        "longitude": 107.5904275402039,
+        })
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Longitude and Latitude cannot be empty");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 
 });
 

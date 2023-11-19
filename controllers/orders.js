@@ -17,7 +17,7 @@ class Controller {
                     status: "active",
                     totalPrice, totalPrice
                 }, {transaction: t})
-
+                
                 const cart = data.map((el) => {
                     return {
                         OrderId: order.id,

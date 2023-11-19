@@ -180,6 +180,28 @@ describe("GET /stores", () => {
       });
   });
 
+  test("400 POST store with empty body", (done) => {
+    request(app)
+      .post(`/stores`)
+      .send({
+        "address": "Jakarta Utara",
+        "longitude": 107.5904275402039,
+        "latitude": -6.9439994342171225,
+        "UserId": 1
+        })
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message","Name cannot be empty");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   test("401 POST store with invalid token", (done) => {
     request(app)
       .post(`/stores`)

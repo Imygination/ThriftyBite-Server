@@ -17,7 +17,7 @@ class Controller {
                     status: "active",
                     totalPrice, totalPrice
                 }, {transaction: t})
-
+                
                 const cart = data.map((el) => {
                     return {
                         OrderId: order.id,
@@ -112,7 +112,7 @@ class Controller {
                 }
             })
 
-            if (!orders) {
+            if (orders.length===0) {
                 throw {name: "OrderNotFound"}
             }
             res.status(200).json(orders)

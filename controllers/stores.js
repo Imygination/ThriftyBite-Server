@@ -47,11 +47,6 @@ class Controller {
       const store = await Store.findByPk(id, {
         include: {
           model: Food,
-          where: {
-            stock: {
-              [Op.gt]: 0
-            }
-          }
         }
         })
       if (!store) {

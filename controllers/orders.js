@@ -65,21 +65,37 @@ class Controller {
 
     static async updateOrder(req, res, next) {
         try {
-            const {id} = req.params
-            const {status} = req.body
+            const {transaction_status, order_id} = req.body
 
-            if (!status) {
-                throw {name: "StatusEmpty"}
+            console.log({
+                transaction_status,
+                order_id
+            })
+
+            if (transaction_status !== "capture") {
+                throw {name: "PaymentFailed"}
             }
 
-            const order = await Order.findByPk(id)
+            const orderId = Number(order_id.split("_")[1])
 
-            if (!order) {
-                throw {name: "OrderNotFound"}
-            }
+            const order = await Order.findByPk(orderId, {
+                include: FoodOrder
+            })
 
-            await order.update({
-                status: status
+            await order.update({status: "finished"})
+
+            const foodOrder = await order.FoodOrders
+
+
+            foodOrder.map(async (el) => {
+                try {
+                    const {count, FoodId} = el
+                    const food = await Food.findByPk(FoodId)
+                    const newStock = food.stock - count
+                    await food.update({stock: newStock})
+                } catch (error) {
+                    next(error)
+                }
             })
 
             res.status(200).json({message: "Order has been updated"})

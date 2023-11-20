@@ -1,4 +1,5 @@
 const {Order, FoodOrder, Food, sequelize} = require('../models');
+const midtransClient = require("midtrans-client");
 class Controller {
     static async createOrder(req, res, next) {
         const t = await sequelize.transaction()
@@ -30,7 +31,29 @@ class Controller {
                 transaction: t
             })
             await t.commit()
-            res.status(201).json(order)
+
+            let snap = new midtransClient.Snap({
+                isProduction: false,
+                serverKey: process.env.MIDTRANS_SERVER_KEY,
+            });
+
+            let parameter = {
+                transaction_details: {
+                order_id: `ThriftyBite_` + order.id,
+                gross_amount: order.totalPrice,
+                },
+                credit_card: {
+                secure: true,
+                },
+                customer_details: {
+                email: req.user.email, 
+                },
+            };
+
+            const midtransResponse = await snap.createTransaction(parameter);
+            const { redirect_url, token } = midtransResponse;
+
+            res.status(201).json({ redirect_url, token });
         } catch (error) {
             next(error)
             await t.rollback()

@@ -1,0 +1,228 @@
+[
+    {
+      "name": "Super Besar New 1",
+      "imageUrl": "https://foto.kontan.co.id/U8Zh_ntbjDzGj8M09ND6fBZMT8Y=/smart/filters:format(webp)/2023/09/08/1385473158p.jpg",
+      "description": "1 Pcs Chicken + 1 Rice + 1 Coca Cola Medium + 1 Pcs KFC Soup",
+      "price": 38.500,
+      "stock": 50,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Super Besar New 2",
+      "imageUrl": "https://sumutcyber.com/wp-content/uploads/2023/09/IMG-20230909-WA0003.jpg",
+      "description": "2 Pcs Chicken + 1 Rice + 1 Coca Cola Medium + 1 Pc KFC Soup",
+      "price": 48.000,
+      "stock": 50,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Kombo Double Down Kimchi",
+      "imageUrl": "https://static.order.kfcku.com/images/items/lg/12650.jpg?v=3QX0qg",
+      "description": "1 pc Double Down Kimchi + 1 cup Jeju Summer Float",
+      "price": 52.500,
+      "stock": 25,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Snack Bucket Margheritta 1",
+      "imageUrl": "https://www.jagel.id/api/listimage/v/Snack-Bucket-Margheritta-0-51265225b237f95f.jpg",
+      "description": "4 pcs Crispy Strips + 6 pcs Chicken Ball + 1 Winger + 1 French Fries Large",
+      "price": 85.300,
+      "stock": 21,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+      "name": "Winger Bucket",
+      "imageUrl": "https://rmi.one/deliveryclub/kfc/wp-content/uploads/sites/2/2018/08/24-Wings-Bucket.jpg",
+      "description": "Winger Bucket",
+      "price": 88.000,
+      "stock": 18,
+      "UserId": 1,
+      "StoreId": 1
+    },
+    {
+        "name": "PaNas 2 Krispy, Large",
+        "imageUrl": "https://d2vuyvo9qdtgo9.cloudfront.net/foods/October2023/F5B8jt0X3XgWbd0hNJuK.webp",
+        "description": "2 pcs Ayam Goreng khas McDonald's dengan kentang goreng dan minuman FruitTea lemon yang menyegarkan",
+        "price": 47.000,
+        "stock": 50,
+        "UserId": 2,
+        "StoreId": 2  
+    },
+    {
+        "name": "PaNas Special Krispy, Medium",
+        "imageUrl": "https://d2vuyvo9qdtgo9.cloudfront.net/foods/October2023/zdp0LhOduHDNXVYWILMx.webp",
+        "description": "Ayam Goreng khas McDonald's dengan nasi hangat dan tambahan scrambled egg serta minuman FruitTea lemon yang menyegarkan",
+        "price": 38.500,
+        "stock": 50,
+        "UserId": 2,
+        "StoreId": 2  
+    },
+    {
+        "name": "Big Mac, Medium",
+        "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230917212210036758/detail/a628a7cc_TPO100324_1.webp",
+        "description": "Burger Ikonik McDonald's. Dua lapis daging sapi gurih disajikan dengan saus spesial, selada segar, keju, acar timun, bawang, diapit roti bertabur wijen",
+        "price": 51.000,
+        "stock": 45,
+        "UserId": 2,
+        "StoreId": 2  
+    },
+    {
+        "name": "McSpicy, Medium",
+        "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230917212203015824/detail/2466910a_TPO110135_1.webp",
+        "description": "",
+        "price": 41.500,
+        "stock": 38,
+        "UserId": 2,
+        "StoreId": 2  
+    },
+    {
+        "name": "McNuggets 9 Pcs, Large",
+        "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20230531200604029921/detail/6ab60209_TPO112004.webp",
+        "description": "Nugget ayam McDonald's dan saus Sweet & Sour atau Barbeque pilihan Anda. Tersedia dalam pilihan 9 pieces",
+        "price": 57.000,
+        "stock": 43,
+        "UserId": 2,
+        "StoreId": 2  
+    },
+    {
+        "name": "Combo Fire Drum Stick",
+        "imageUrl": "https://www.richeesefactory.com/sites/default/media/library/combo-special-combo-duo-firechicken-putih.jpg",
+        "description": "2 Fire Drum Stick + 1 Nasi + 1 Medium Drink + Cheese Sauce",
+        "price": 60.000,
+        "stock": 50,
+        "UserId": 3,
+        "StoreId": 3
+    },
+    {
+        "name": "Fire Chicken 8 Pcs",
+        "imageUrl": "https://www.richeesefactory.com/sites/default/media/library/ala-carte-08-1-.png",
+        "description": "8 Fire Chicken + Cheese Sauce",
+        "price": 210.000,
+        "stock": 19,
+        "UserId": 3,
+        "StoreId": 3
+    },
+    {
+        "name": "Fire French Fries",
+        "imageUrl": "https://www.richeesefactory.com/sites/default/media/library/snack-n-dessert-03.png",
+        "description": "French Fries dengan cheese sauce dan BBQ sauce (level 0 dna level 1)",
+        "price": 23.000,
+        "stock": 75,
+        "UserId": 3,
+        "StoreId": 3
+    },
+    {
+        "name": "Big Five Flying Chicken / Richicken",
+        "imageUrl": "https://www.richeesefactory.com/sites/default/media/library/ala-carte-15.png",
+        "description": "5 Flying Chicken Personal / Richicken + 3 Nasi + 3 Medium Drink + Cheese Sauce",
+        "price": 130.000,
+        "stock": 30,
+        "UserId": 3,
+        "StoreId": 3
+    },
+    {
+        "name": "Fire Wedges",
+        "imageUrl": "https://www.richeesefactory.com/sites/default/media/library/snack-n-dessert-02.png",
+        "description": " Fire Wedges yang disajikan dengan saus BBQ pilihan level 0 s.d level 1 dan cheese sauce yang lezat",
+        "price": 28.000,
+        "stock": 39,
+        "UserId": 3,
+        "StoreId": 3
+    },
+    {
+        "name": "L1MO Cruncheeze 3 Topping",
+        "imageUrl": "https://foto.kontan.co.id/0p4m33ySCipYbYi_VGgel5EPtZs=/smart/filters:format(webp)/2023/03/02/2139328847p.jpg",
+        "description": "L1MO Pizza dengan sensasi kerenyahan Cruncheeze dengan Topping Tuna Melt, Meat Lovers dan Super Supreme. Pesan sekarang!",
+        "price": 328.000,
+        "stock": 25,
+        "UserId": 4,
+        "StoreId": 4
+    },
+    {
+        "name": "Big Box",
+        "imageUrl": "https://katalogpromosi.com/wp-content/uploads/2023/07/promo-pizza-hut-big-box-25082023-copy.webp",
+        "description": "Makin puas buat rame-rame dengan menu lengkap Pizza, Pasta, dan Appetizer.",
+        "price": 233.000,
+        "stock": 20,
+        "UserId": 4,
+        "StoreId": 4
+    },
+    {
+        "name": "Cheese Lava",
+        "imageUrl": "https://www.pizzahut.co.id/assets/images/digital_menu/phr/menu/pasta-rice/Cheese-Lava.png",
+        "description": "Pasta Fusilli, Pepperoni Sapi, Saus Keju Cheddar, Beef Bits dengan Saus Cheese Fondue",
+        "price": 69.000,
+        "stock": 33,
+        "UserId": 4,
+        "StoreId": 4
+    },
+    {
+        "name": "Beef Arabbiata",
+        "imageUrl": "https://www.pizzahut.co.id/assets/images/digital_menu/phr/menu/pasta-rice/BEEF-ARRABBIATA.png",
+        "description": "Pasta Penne, Meatball Sapi dan Saus Arrabbiata",
+        "price": 76.000,
+        "stock": 55,
+        "UserId": 4,
+        "StoreId": 4
+    },
+    {
+        "name": "PAN Large Pizza",
+        "imageUrl": "https://kulampah.com/wp-content/uploads/2022/12/Macam-Macam-Ukuran-di-Pizza-Hut.jpg.webp",
+        "description": "Pilih dari berbagai macam pizza seperti: FRANKFURTER BBQ, CHEESEBURGER, MEAT MONSTA , SUPER SUPREME, MEAT LOVERS, PEPPERONI, AMERICAN FAVOURITE, TUNA MELT, CHEESE LOVERS, CHEESE OVERLOAD, VEGGIE GARDEN",
+        "price": 57.000,
+        "stock": 75,
+        "UserId": 4,
+        "StoreId": 4
+    },
+    {
+        "name": "Udang Telur Asin Basah (porsi Sedang)",
+        "imageUrl": "https://kurio-img.kurioapps.com/21/10/28/5a8eaa12-e767-4077-897c-443470aebb00.jpe",
+        "description": "Udang Goreng Tepung yang di Tuang dengan Saus Telur Asin",
+        "price": 70.000,
+        "stock": 30,
+        "UserId": 5,
+        "StoreId": 5
+    },
+    {
+        "name": "Sotong Goreng Tepung (porsi Sedang)",
+        "imageUrl": "https://asset-2.tstatic.net/medan/foto/bank/images/Resep-Cumi-goreng-tepung.jpg",
+        "description": "Sotong digoreng dengan Tepung yang memunculkan rasa gurih dan renyah",
+        "price": 70.000,
+        "stock": 44,
+        "UserId": 5,
+        "StoreId": 5
+    },
+    {
+        "name": "Kepiting Saos Padang (ukuran Sedang) /Kg",
+        "imageUrl": "https://www.masakapahariini.com/wp-content/uploads/2022/02/resep-kepiting-saus-tiram-siap.jpg",
+        "description": "kepiting yang disajikan dengan saus Padang yang panas dan pedas.",
+        "price": 320.000,
+        "stock": 50,
+        "UserId": 5,
+        "StoreId": 5
+    },
+    {
+        "name": "Gonggong Rebus (porsi Sedang)",
+        "imageUrl": "https://cdn.idntimes.com/content-images/community/2018/01/gonggong-8f9604e4729d28a98e38323bda8bf76c_600x400.jpg",
+        "description": "Salah satu seafood yg cukup mudah ditemukan di kota Batam, Siput Gonggong direbus",
+        "price": 60.000,
+        "stock": 200,
+        "UserId": 5,
+        "StoreId": 5
+    },
+    {
+        "name": "Broccoli Jamur Sedang",
+        "imageUrl": "https://www.masakapahariini.com/wp-content/uploads/2019/01/brokoli-saus-jamur.jpg",
+        "description": "Brokoli ditumis dengan jamur dan bawang putih",
+        "price": 40.000,
+        "stock": 70,
+        "UserId": 5,
+        "StoreId": 5
+    }
+  ]
+  

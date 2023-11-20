@@ -4,7 +4,9 @@
   "description": "- [ThriftyBite-server Documentation](#thriftybite-server-documentation)\r     - [POST /register](#post-register)\r     - [POST /login](#post-login)\r     - [POST /stores](#post-stores)\r     - [GET /stores/:id](#get-storesid)\r     - [POST /foods](#post-foods)\r     - [GET /foods](#get-foods)\r     - [GET /foods/:id](#get-foodsid)\r   - [Work in Progress](#work-in-progress)\r     - [POST /orders](#post-orders)\r     - [PATCH /orders](#patch-orders)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/www",
+    "dev": "nodemon bin/www"
   },
   "keywords": [],
   "author": "",

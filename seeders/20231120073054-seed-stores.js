@@ -1,21 +1,14 @@
 'use strict';
-
+const stores = require('../data/stores.json');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("Stores", [
-      {
-        name: "andika store",
-        address: "Yogyakarta",
-        location: Sequelize.fn(
-          'ST_GeomFromText',
-          'POINT(107.59278847659893 -6.942981263106864)'
-        ),
-        UserId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ])
+    await queryInterface.bulkInsert("Stores", 
+      stores.map((store) => {
+          store.createdAt = store.updatedAt = new Date()
+          return store
+      })
+    )
     /**
      * Add seed commands here.
      *
@@ -28,7 +21,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Stores")
+    await queryInterface.bulkDelete("Stores", null, {})
     /**
      * Add commands to revert seed here.
      *

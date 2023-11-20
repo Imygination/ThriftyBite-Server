@@ -9,7 +9,6 @@ const orders = require('./routes/orders');
 const errorHandler = require("./middlewares/errorHandler");
 const stores = require("./routes/stores");
 const app = express();
-const port = 3000;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -27,8 +26,5 @@ app.use("/orders", orders)
 app.use("/stores", stores)
 
 app.use(errorHandler);
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
 
 module.exports = app

@@ -174,6 +174,22 @@ describe("GET /foods", () => {
       });
   });
 
+  test("200 success GET foods with search", (done) => {
+    request(app)
+      .get("/foods?search=ikan")
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(200);
+        expect(Array.isArray(body)).toBeTruthy();
+        expect(body.length).toBeGreaterThan(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   test("200 success GET foods by id", (done) => {
     request(app)
       .get("/foods/1")
@@ -310,7 +326,7 @@ describe("GET /foods", () => {
       });
   });
 
-  test("401 POST foods with unauthorized token", (done) => {
+  test("403 POST foods with unauthorized token", (done) => {
     request(app)
       .post(`/foods`)
       .send({
@@ -323,6 +339,56 @@ describe("GET /foods", () => {
         "stock": 15,
         })
         .set("access_token", invalidToken2)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(403);
+        expect(body).toHaveProperty("message", "You are not authorized");
+        done()
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("200 PUT edit food", (done) => {
+    request(app)
+      .put(`/foods/1`)
+      .send({
+        "name": "Ikan Bakar",
+        "imageUrl": "gambar ikan",
+        "description": "Ikan Sarden dimasak goreng abis",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 20000,
+        "stock": 32,
+      },)
+        .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "Food has been updated");
+        done()
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("403 PUT edit food with invalid token", (done) => {
+    request(app)
+      .put(`/foods/1`)
+      .send({
+        "name": "Ikan Bakar Pedas",
+        "imageUrl": "gambar ikan",
+        "description": "Ikan Sarden dimasak goreng abis",
+        "UserId": 1 ,
+        "StoreId": 1,
+        "price": 20000,
+        "stock": 32,
+      },)
+        .set("access_token", validToken2)
       .then((response) => {
         const { body, status } = response;
 

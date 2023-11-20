@@ -67,11 +67,6 @@ class Controller {
         try {
             const {transaction_status, order_id} = req.body
 
-            console.log({
-                transaction_status,
-                order_id
-            })
-
             if (transaction_status !== "capture") {
                 throw {name: "PaymentFailed"}
             }
@@ -85,7 +80,6 @@ class Controller {
             await order.update({status: "finished"})
 
             const foodOrder = await order.FoodOrders
-
 
             foodOrder.map(async (el) => {
                 try {

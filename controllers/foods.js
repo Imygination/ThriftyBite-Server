@@ -92,6 +92,24 @@ class Controller {
         })
     }
 
+    static async editFood(req, res, next) {
+        try {
+            const {id:UserId, StoreId} = req.user
+            const obj = req.body
+            const {id} = req.params
+
+            const food = await Food.findByPk(id)
+
+            if (food.UserId !== UserId || food.StoreId !== StoreId) {
+                throw {name: "Forbidden"}
+            }
+            await food.update(obj)
+            res.status(200).json({message: "Food has been updated"})
+        } catch (error) {
+            next(error)
+        }
+    }
+
 
     // Violate key value constraint. maybe don't delete for order history
 

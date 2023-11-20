@@ -5,6 +5,9 @@ class Controller {
         const t = await sequelize.transaction()
         try {
             const data = req.body
+            if (!data || data.length === 0) {
+                throw {name: "CartEmpty"}
+            }
             const {id} = req.user
             let totalPrice = 0
             data.map((el) => {
@@ -55,8 +58,8 @@ class Controller {
 
             res.status(201).json({ redirect_url, token });
         } catch (error) {
-            next(error)
             await t.rollback()
+            next(error)
         }
     }
 

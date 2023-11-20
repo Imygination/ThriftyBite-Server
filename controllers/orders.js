@@ -1,9 +1,13 @@
 const {Order, FoodOrder, Food, sequelize} = require('../models');
+const midtransClient = require("midtrans-client");
 class Controller {
     static async createOrder(req, res, next) {
         const t = await sequelize.transaction()
         try {
             const data = req.body
+            if (!data || data.length === 0) {
+                throw {name: "CartEmpty"}
+            }
             const {id} = req.user
             let totalPrice = 0
             data.map((el) => {
@@ -30,30 +34,62 @@ class Controller {
                 transaction: t
             })
             await t.commit()
-            res.status(201).json(order)
+
+            let snap = new midtransClient.Snap({
+                isProduction: false,
+                serverKey: process.env.MIDTRANS_SERVER_KEY,
+            });
+
+            let parameter = {
+                transaction_details: {
+                order_id: `ThriftyBite_` + order.id,
+                gross_amount: order.totalPrice,
+                },
+                credit_card: {
+                secure: true,
+                },
+                customer_details: {
+                email: req.user.email, 
+                },
+            };
+
+            const midtransResponse = await snap.createTransaction(parameter);
+            const { redirect_url, token } = midtransResponse;
+
+            res.status(201).json({ redirect_url, token });
         } catch (error) {
-            next(error)
             await t.rollback()
+            next(error)
         }
     }
 
     static async updateOrder(req, res, next) {
         try {
-            const {id} = req.params
-            const {status} = req.body
+            const {transaction_status, order_id} = req.body
 
-            if (!status) {
-                throw {name: "StatusEmpty"}
+            if (transaction_status !== "capture") {
+                throw {name: "PaymentFailed"}
             }
 
-            const order = await Order.findByPk(id)
+            const orderId = Number(order_id.split("_")[1])
 
-            if (!order) {
-                throw {name: "OrderNotFound"}
-            }
+            const order = await Order.findByPk(orderId, {
+                include: FoodOrder
+            })
 
-            await order.update({
-                status: status
+            await order.update({status: "finished"})
+
+            const foodOrder = await order.FoodOrders
+
+            foodOrder.map(async (el) => {
+                try {
+                    const {count, FoodId} = el
+                    const food = await Food.findByPk(FoodId)
+                    const newStock = food.stock - count
+                    await food.update({stock: newStock})
+                } catch (error) {
+                    next(error)
+                }
             })
 
             res.status(200).json({message: "Order has been updated"})

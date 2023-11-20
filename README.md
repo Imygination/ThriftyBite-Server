@@ -13,7 +13,7 @@
     - [GET /foods/:id](#get-foodsid)
     - [POST /orders](#post-orders)
     - [GET /orders](#get-orders)
-    - [PATCH /orders/:id](#patch-ordersid)
+    - [POST /orders/payment](#post-orderspayment)
     - [GET /orders/:id](#get-ordersid)
 
 ### POST /register
@@ -383,11 +383,10 @@
 -   response (201)
 
 ```json
+//midtrans
 {
-    "id": "integer",
-    "UserId": "integer",
-    "status": "active",
-    "totalPrice": "integer"
+    "redirect_url": "string",
+    "token": "string"
 }
 ```
 
@@ -431,24 +430,20 @@
 ]
 ```
 
-### PATCH /orders/:id
+### POST /orders/payment
 
 > To edit an order
 
 -   request
 
 ```json
-{
-    "status": "string" // [active, finished]
-}
+//midtrans
 ```
 
 -   headers
 
-```json
-{
-    "access_token": "string"
-}
+```
+    not needed
 ```
 
 -   response (200)

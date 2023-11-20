@@ -362,10 +362,8 @@ describe("GET /orders", () => {
         const { body, status } = response;
 
         expect(status).toBe(201);
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("UserId", expect.any(Number));
-        expect(body).toHaveProperty("status", "active");
-        expect(body).toHaveProperty("totalPrice", expect.any(Number));
+        expect(body).toHaveProperty("redirect_url", expect.any(String));
+        expect(body).toHaveProperty("token", expect.any(String));
         done();
       })
       .catch((err) => {
@@ -439,11 +437,11 @@ describe("GET /orders", () => {
 
   test("200 success PATCH order", (done) => {
     request(app)
-      .patch(`/orders/2`)
+      .post(`/orders/payment`)
       .send({
-        "status": "Inactive"
+        "transaction_status": "capture",
+        "order_id": "ThriftyBite_1"
       })
-      .set("access_token", validToken)
       .then((response) => {
         const { body, status } = response;
 
@@ -456,40 +454,40 @@ describe("GET /orders", () => {
       });
   });
 
-  test("400 PATCH order with empty status", (done) => {
-    request(app)
-      .patch(`/orders/2`)
-      .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
+  // test("400 PATCH order with empty status", (done) => {
+  //   request(app)
+  //     .patch(`/orders/2`)
+  //     .set("access_token", validToken)
+  //     .then((response) => {
+  //       const { body, status } = response;
 
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message", "Status cannot be empty");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+  //       expect(status).toBe(400);
+  //       expect(body).toHaveProperty("message", "Status cannot be empty");
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
 
-  test("404 PATCH order not found ", (done) => {
-    request(app)
-      .patch(`/orders/100`)
-      .send({
-        "status": "Inactive"
-      })
-      .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
+  // test("404 PATCH order not found ", (done) => {
+  //   request(app)
+  //     .patch(`/orders/100`)
+  //     .send({
+  //       "status": "Inactive"
+  //     })
+  //     .set("access_token", validToken)
+  //     .then((response) => {
+  //       const { body, status } = response;
 
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("message", "Order not found");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+  //       expect(status).toBe(404);
+  //       expect(body).toHaveProperty("message", "Order not found");
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
 
   
 

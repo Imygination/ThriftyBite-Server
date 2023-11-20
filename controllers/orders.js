@@ -148,9 +148,6 @@ class Controller {
                 }
             })
 
-            if (!orders) {
-                throw {name: "OrderNotFound"}
-            }
             res.status(200).json(orders)
         } catch (error) {
             next(error)

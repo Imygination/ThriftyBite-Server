@@ -27,7 +27,7 @@ class Controller {
     static async getAllFoods(req, res, next) {
         try {
             const {search} = req.query
-            console.log(search)
+            // console.log(search)
             let option = {
                 include: {
                     model: Store,
@@ -78,7 +78,7 @@ class Controller {
 
 
     static uploadImage(req, res) {
-        console.log("image received")
+        // console.log("image received")
         cloudinary.uploader.upload(req.file.path, function (err, result){
             if(err) {
                 console.log(err);

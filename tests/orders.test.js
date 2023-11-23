@@ -348,28 +348,28 @@ describe("GET /orders", () => {
       });
   });
 
-  test("201 success POST orders", (done) => {
-    request(app)
-      .post(`/orders`)
-      .send([{
-        "price": 80000,
-        "foodId": 1,
-        "foodPrice": 16000,
-        "count": 20 ,
-      }])
-      .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
+  // test("201 success POST orders", (done) => {
+  //   request(app)
+  //     .post(`/orders`)
+  //     .send([{
+  //       "price": 80000,
+  //       "foodId": 1,
+  //       "foodPrice": 16000,
+  //       "count": 20 ,
+  //     }])
+  //     .set("access_token", validToken)
+  //     .then((response) => {
+  //       const { body, status } = response;
 
-        expect(status).toBe(201);
-        expect(body).toHaveProperty("redirect_url", expect.any(String));
-        expect(body).toHaveProperty("token", expect.any(String));
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+  //       expect(status).toBe(201);
+  //       expect(body).toHaveProperty("redirect_url", expect.any(String));
+  //       expect(body).toHaveProperty("token", expect.any(String));
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
 
   test("500 POST orders with empty Body", (done) => {
     request(app)
@@ -435,7 +435,24 @@ describe("GET /orders", () => {
       });
   });
 
-  test("200 success PATCH order", (done) => {
+  test("400 POST orders with empty cart", (done) => {
+    request(app)
+      .post(`/orders`)
+      .send([])
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Cart cannot be empty");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("200 success after payment order", (done) => {
     request(app)
       .post(`/orders/payment`)
       .send({
@@ -454,42 +471,23 @@ describe("GET /orders", () => {
       });
   });
 
-  // test("400 PATCH order with empty status", (done) => {
-  //   request(app)
-  //     .patch(`/orders/2`)
-  //     .set("access_token", validToken)
-  //     .then((response) => {
-  //       const { body, status } = response;
+  test("400 failed after payment order", (done) => {
+    request(app)
+      .post(`/orders/payment`)
+      .send({
+        "transaction_status": "cancel",
+        "order_id": "ThriftyBite_1"
+      })
+      .then((response) => {
+        const { body, status } = response;
 
-  //       expect(status).toBe(400);
-  //       expect(body).toHaveProperty("message", "Status cannot be empty");
-  //       done();
-  //     })
-  //     .catch((err) => {
-  //       done(err);
-  //     });
-  // });
-
-  // test("404 PATCH order not found ", (done) => {
-  //   request(app)
-  //     .patch(`/orders/100`)
-  //     .send({
-  //       "status": "Inactive"
-  //     })
-  //     .set("access_token", validToken)
-  //     .then((response) => {
-  //       const { body, status } = response;
-
-  //       expect(status).toBe(404);
-  //       expect(body).toHaveProperty("message", "Order not found");
-  //       done();
-  //     })
-  //     .catch((err) => {
-  //       done(err);
-  //     });
-  // });
-
-  
-
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Payment failed");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 });
 

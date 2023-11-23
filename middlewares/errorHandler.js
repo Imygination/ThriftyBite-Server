@@ -13,17 +13,11 @@ function errorHandler(error, request, response, next) {
     case "CartEmpty":
       response.status(400).json({ message: "Cart cannot be empty" });
       break;
-    case "StatusEmpty":
-      response.status(400).json({ message: "Status cannot be empty" });
-      break;
     case "LongLatEmpty":
       response.status(400).json({ message: "Longitude and Latitude cannot be empty" });
       break;
     case "PaymentFailed":
       response.status(400).json({ message: "Payment failed" });
-      break;
-    case "OrderFailed":
-      response.status(400).json({ message: "Order failed" });
       break;
     case "UserNotFound":
     case "PasswordInvalid":

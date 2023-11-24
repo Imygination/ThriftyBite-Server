@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Store, Food, Sequelize, sequelize } = require("../models");
 
 class Controller {
@@ -44,8 +45,10 @@ class Controller {
     try {
       const id = req.params.id;
       const store = await Store.findByPk(id, {
-        include: Food 
-      })
+        include: {
+          model: Food,
+        }
+        })
       if (!store) {
         throw {name: "StoreNotFound"}
       }

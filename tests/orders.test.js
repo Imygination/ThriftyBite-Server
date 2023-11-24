@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const { User, Food , Store } = require("../models");
+const { User, Food , Store , Order , FoodOrder } = require("../models");
 const { signToken } = require("../helpers/jwt");
 
 let validToken, validToken2, invalidToken ,validToken3, invalidToken2
@@ -132,6 +132,66 @@ beforeAll((done) => {
         id: registeredUser4.id,
         email: registeredUser4.email,
       });
+      return Order.bulkCreate(
+        [
+          {
+            "totalPrice": 15000,
+            "UserId": 2 ,
+            "status": "active"
+          },
+          {
+            "totalPrice": 35000,
+            "UserId": 1 ,
+            "status": "active"
+          },
+          {
+            "totalPrice": 80000,
+            "UserId": 1 ,
+            "status": "active"
+          },
+          {
+            "totalPrice": 155000,
+            "UserId": 2 ,
+            "status": "active"
+          },
+        ],
+        {
+          ignoreDuplicates: true,
+        }
+      )
+    })
+    .then(()=>{
+        return FoodOrder.bulkCreate(
+            [
+              {
+                "OrderId": 1,
+                "FoodId": 1,
+                "foodPrice": 15000,
+                "count": 2 ,
+              },
+              {
+                "OrderId": 2,
+                "FoodId": 2,
+                "foodPrice": 18000,
+                "count": 3 ,
+              },
+              {
+                "OrderId": 3,
+                "FoodId": 3,
+                "foodPrice": 9000,
+                "count": 1 ,
+              },
+              {
+                "OrderId": 4,
+                "FoodId": 4,
+                "foodPrice": 16000,
+                "count": 20 ,
+              },
+            ],
+            {
+              ignoreDuplicates: true,
+            }
+          )
     })
     .then(()=>{
       done()
@@ -148,7 +208,10 @@ afterAll(done => {
     })
     .then(_ => {
         return Food.destroy({ truncate: true, cascade: true, restartIdentity: true })
-      })
+    })
+    .then(_ => {
+        return Order.destroy({ truncate: true, cascade: true, restartIdentity: true })
+    })
     .then(_ => {
       done();
     })
@@ -157,95 +220,15 @@ afterAll(done => {
     });
 });
 
-describe("GET /foods", () => {
-  test("200 success GET foods", (done) => {
+describe("GET /orders", () => {
+  test("200 success GET orders", (done) => {
     request(app)
-      .get("/foods")
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(200);
-        expect(Array.isArray(body)).toBeTruthy();
-        expect(body.length).toBeGreaterThan(0);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("200 success GET foods with search", (done) => {
-    request(app)
-      .get("/foods?search=ikan")
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(200);
-        expect(Array.isArray(body)).toBeTruthy();
-        expect(body.length).toBeGreaterThan(0);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("200 success GET foods by id", (done) => {
-    request(app)
-      .get("/foods/1")
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(200);
-        expect(typeof body).toBe('object');
-        expect(body).toHaveProperty("Store", expect.any(Object));
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("UserId", expect.any(Number));
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("404 error GET food by id Not Found", (done) => {
-    request(app)
-      .get("/foods/100")
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("message", "Food not found");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("201 success POST foods", (done) => {
-    request(app)
-      .post(`/foods`)
-      .send({
-        "name": "Nasi Goreng",
-        "imageUrl": "Gambar Nasi Goreng",
-        "description": "nasi di Goreng",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 23000,
-        "stock": 15,
-        })
+      .get("/orders")
       .set("access_token", validToken)
       .then((response) => {
         const { body, status } = response;
-
-        expect(status).toBe(201);
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("UserId", expect.any(Number));
-        expect(body).toHaveProperty("StoreId", expect.any(Number));
-        expect(body).toHaveProperty("name", "Nasi Goreng");
-        expect(body).toHaveProperty("price", expect.any(Number));
-        expect(body).toHaveProperty("stock", expect.any(Number));
+        expect(status).toBe(200);
+        expect(Array.isArray(body)).toBeTruthy();
         done();
       })
       .catch((err) => {
@@ -253,42 +236,9 @@ describe("GET /foods", () => {
       });
   });
 
-  test("400 POST foods with empty body", (done) => {
+  test("401 GET orders with invalid token", (done) => {
     request(app)
-      .post(`/foods`)
-      .send({
-        "imageUrl": "Gambar Nasi Goreng",
-        "description": "nasi di Goreng",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 23000,
-        "stock": 15,
-        })
-      .set("access_token", validToken)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message", "Name cannot be empty");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("401 POST foods with invalid token", (done) => {
-    request(app)
-      .post(`/foods`)
-      .send({
-        "name": "Nasi Goreng",
-        "imageUrl": "Gambar Nasi Goreng",
-        "description": "nasi di Goreng",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 23000,
-        "stock": 15,
-        })
+      .get("/orders")
       .set("access_token", invalidToken)
       .then((response) => {
         const { body, status } = response;
@@ -302,18 +252,9 @@ describe("GET /foods", () => {
       });
   });
 
-  test("401 POST foods without token", (done) => {
+  test("401 GET orders with without token", (done) => {
     request(app)
-      .post(`/foods`)
-      .send({
-        "name": "Nasi Goreng",
-        "imageUrl": "Gambar Nasi Goreng",
-        "description": "nasi di Goreng",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 23000,
-        "stock": 15,
-        })
+      .get("/orders")
       .then((response) => {
         const { body, status } = response;
 
@@ -326,80 +267,227 @@ describe("GET /foods", () => {
       });
   });
 
-  test("403 POST foods with unauthorized token", (done) => {
+  test("200 success GET orders by id", (done) => {
     request(app)
-      .post(`/foods`)
-      .send({
-        "name": "Nasi Goreng",
-        "imageUrl": "Gambar Nasi Goreng",
-        "description": "nasi di Goreng",
-        "UserId": 4 ,
-        "StoreId": 1,
-        "price": 23000,
-        "stock": 15,
-        })
-        .set("access_token", invalidToken2)
-      .then((response) => {
-        const { body, status } = response;
-
-        expect(status).toBe(403);
-        expect(body).toHaveProperty("message", "You are not authorized");
-        done()
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  test("200 PUT edit food", (done) => {
-    request(app)
-      .put(`/foods/1`)
-      .send({
-        "name": "Ikan Bakar",
-        "imageUrl": "gambar ikan",
-        "description": "Ikan Sarden dimasak goreng abis",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 20000,
-        "stock": 32,
-      },)
-        .set("access_token", validToken)
+      .get("/orders/2")
+      .set("access_token", validToken)
       .then((response) => {
         const { body, status } = response;
 
         expect(status).toBe(200);
-        expect(body).toHaveProperty("message", "Food has been updated");
-        done()
+        expect(body).toHaveProperty("totalPrice", expect.any(Number));
+        expect(body).toHaveProperty("id", expect.any(Number));
+        expect(body).toHaveProperty("UserId", expect.any(Number));
+        done();
       })
       .catch((err) => {
         done(err);
       });
   });
 
-  test("403 PUT edit food with invalid token", (done) => {
+  test("401 GET orders by id with different UserId", (done) => {
     request(app)
-      .put(`/foods/1`)
-      .send({
-        "name": "Ikan Bakar Pedas",
-        "imageUrl": "gambar ikan",
-        "description": "Ikan Sarden dimasak goreng abis",
-        "UserId": 1 ,
-        "StoreId": 1,
-        "price": 20000,
-        "stock": 32,
-      },)
-        .set("access_token", validToken2)
+      .get("/orders/2")
+      .set("access_token", validToken3)
       .then((response) => {
         const { body, status } = response;
 
-        expect(status).toBe(403);
-        expect(body).toHaveProperty("message", "You are not authorized");
-        done()
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Unauthenticated");
+        done();
       })
       .catch((err) => {
         done(err);
       });
   });
 
+  test("404 error GET orders by id Not Found", (done) => {
+    request(app)
+      .get("/orders/100")
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("message", "Order not found");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("401 GET orders by id with invalid token", (done) => {
+    request(app)
+      .get("/orders/1")
+      .set("access_token", invalidToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Unauthenticated");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("401 GET orders by id with without token", (done) => {
+    request(app)
+      .get("/orders/1")
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Unauthenticated");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  // test("201 success POST orders", (done) => {
+  //   request(app)
+  //     .post(`/orders`)
+  //     .send([{
+  //       "price": 80000,
+  //       "foodId": 1,
+  //       "foodPrice": 16000,
+  //       "count": 20 ,
+  //     }])
+  //     .set("access_token", validToken)
+  //     .then((response) => {
+  //       const { body, status } = response;
+
+  //       expect(status).toBe(201);
+  //       expect(body).toHaveProperty("redirect_url", expect.any(String));
+  //       expect(body).toHaveProperty("token", expect.any(String));
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
+
+  test("500 POST orders with empty Body", (done) => {
+    request(app)
+      .post(`/orders`)
+      .send([{
+        "foodId": 1,
+        "foodPrice": 16000,
+        "count": 20 ,
+      }])
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(500);
+        expect(body).toHaveProperty("message");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("401 POST orders with Invalid Token", (done) => {
+    request(app)
+      .post(`/orders`)
+      .send([{
+        "price": 80000,
+        "foodId": 1,
+        "foodPrice": 16000,
+        "count": 20 ,
+      }])
+      .set("access_token", invalidToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Unauthenticated");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("401 POST orders without Token", (done) => {
+    request(app)
+      .post(`/orders`)
+      .send([{
+        "price": 80000,
+        "foodId": 1,
+        "foodPrice": 16000,
+        "count": 20 ,
+      }])
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Unauthenticated");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("400 POST orders with empty cart", (done) => {
+    request(app)
+      .post(`/orders`)
+      .send([])
+      .set("access_token", validToken)
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Cart cannot be empty");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("200 success after payment order", (done) => {
+    request(app)
+      .post(`/orders/payment`)
+      .send({
+        "transaction_status": "capture",
+        "order_id": "ThriftyBite_1"
+      })
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "Order has been updated");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  test("400 failed after payment order", (done) => {
+    request(app)
+      .post(`/orders/payment`)
+      .send({
+        "transaction_status": "cancel",
+        "order_id": "ThriftyBite_1"
+      })
+      .then((response) => {
+        const { body, status } = response;
+
+        expect(status).toBe(400);
+        expect(body).toHaveProperty("message", "Payment failed");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 });
 

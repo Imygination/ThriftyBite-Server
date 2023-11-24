@@ -1,0 +1,34 @@
+[
+    {
+      "name": "KFC",
+      "address": "Batam Centre, Komp. Palm Springs BTC, Seipanas, Jalan Engku Putri No.23, Riau Islands 29444",
+      "location": "POINT(104.03136304858074 1.1258693257741728)",
+      "UserId": 1
+
+    },
+    {
+      "name": "McDonald's",
+      "address": "Komplek Hotel Harmoni Sei Jodoh, Jl. Imam Bonjol No.2, Sungai Jodoh, Kec. Batu Ampar, Kota Batam, Kepulauan Riau 24932",
+      "location": "POINT(104.00717649980344 1.150000347811025)",
+      "UserId": 2
+    },
+    {
+      "name": "Richeese Factory",
+      "address": "Komplek New Holiday, Jl. Imam Bonjol No.14, Sungai Jodoh, Kec. Batu Ampar, Kota Batam, Kepulauan Riau 29444",
+      "location": "POINT(104.00910372133175 1.149566422620497)",
+      "UserId": 3
+    },
+    {
+      "name": "Pizza Hut Restaurant",
+      "address": "Komplek Lucky Permai, Jl. Raden Patah No.6 - 8, Lubuk Baja Kota, Kec. Lubuk Baja, Kota Batam, Kepulauan Riau 29444",
+      "location": "POINT(104.01546773563821 1.1399244774700952)",
+      "UserId": 4
+    },
+    {
+      "name": "Love Seafood",
+      "address": "Kompleks Mahkota Raya, Jl. Raja H. Fisabilillah No.12B, Teluk Tering, Batam Kota, Batam City, Riau Islands 29444",
+      "location": "POINT(104.04161768292563 1.1323042571327009)",
+      "UserId": 5
+    }
+  ]
+  

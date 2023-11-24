@@ -13,6 +13,8 @@ router.post("/images", upload.single("image"), Foods.uploadImage)
 
 router.get("/:id", Foods.getFoodById)
 
+router.put("/:id", authentication, authorization, Foods.editFood)
+
 // router.delete("/:id", authentication, authorization, Foods.deleteFoodById)
 
 module.exports = router

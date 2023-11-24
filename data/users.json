@@ -1,0 +1,45 @@
+[
+    {
+      "username": "Budi Santoso",
+      "email": "budi@mail.com",
+      "password": "12345",
+      "phoneNumber": "0821 8872 03222",
+      "role": "seller"
+    },
+    {
+        "username": "Ardi nichol",
+        "email": "ardi@mail.com",
+        "password": "12345",
+        "phoneNumber": "0819 22059 9442 ",
+        "role": "seller"
+    },
+    {
+        "username": "John Karim Nasutinon",
+        "email": "karim@mail.com",
+        "password": "12345",
+        "phoneNumber": "0821 270255 0899",
+        "role":"seller"
+    },
+    {
+        "username": "Mark Nestory",
+        "email": "mark@mail.com",
+        "password": "12345",
+        "phoneNumber": "0811 67553 4231",
+        "role": "seller"
+    },
+    {
+        "username": "Luna Saragih",
+        "email": "luna@mail.com",
+        "password": "12345",
+        "phoneNumber": "0817 24450 777",
+        "role": "seller"
+    },
+    {
+        "username": "Elizabeth Mort",
+        "email": "elizabeth@mail.com",
+        "password": "12345",
+        "phoneNumber": "0817 44509 9233",
+        "role": "user"
+    }
+  ]
+  
